@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:fadeScrollbars="false"
+    android:padding="8dp"
+    android:background="@color/light_gray"
+    android:scrollbarThumbVertical="@color/yellow"
+    app:flexDirection="row"
+    app:flexWrap="wrap"
+    app:justifyContent="space_between"
+    app:layout_flexGrow="1">
+
+
+</com.google.android.flexbox.FlexboxLayout>
