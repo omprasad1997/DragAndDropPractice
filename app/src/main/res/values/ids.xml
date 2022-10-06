@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="quiz_play_order_la_id" type="id"/>
+    <item name="meta_id" type="id"/>
+    <item name="option_text" type="id"/>
+
+</resources>
