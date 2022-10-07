@@ -7,7 +7,6 @@
     android:layout_margin="8dp"
     android:fadeScrollbars="false"
     android:padding="8dp"
-    android:background="@color/light_gray"
     android:scrollbarThumbVertical="@color/yellow"
     app:flexDirection="row"
     app:flexWrap="wrap"
