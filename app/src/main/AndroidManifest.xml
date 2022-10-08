@@ -13,18 +13,7 @@
         android:theme="@style/Theme.NewDragAndDropPractice"
         tools:targetApi="31">
         <activity
-            android:name=".PracticeActivity"
-            android:exported="true"
-            android:screenOrientation="sensorLandscape">
-
-
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".QuestionsActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="sensorLandscape">
 
@@ -33,6 +22,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".DegreeQuestionActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PracticeActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ImageQuestionsActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

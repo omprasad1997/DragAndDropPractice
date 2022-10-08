@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.flexbox.JustifyContent
 
-class QuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouchListener {
+class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouchListener {
 
     private lateinit var originalContainer: RecyclerView
     private lateinit var mParent: ConstraintLayout
@@ -38,7 +38,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_image_question)
 
         mParent = findViewById(R.id.mParent)
         originalContainer = findViewById(R.id.originalContainer)
@@ -107,10 +107,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouch
                 }
 
                 DragEvent.ACTION_DRAG_ENDED -> {
-
-                    val v = view?.parent as ViewGroup
-
-
                     true
                 }
                 else -> {
@@ -293,8 +289,8 @@ class QuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouch
         val tv = TextView(this)
 
         val boxParams = FlexboxLayout.LayoutParams(
-            convertDpToPixel(this@QuestionsActivity, 75f),
-            convertDpToPixel(this@QuestionsActivity, 80f)
+            convertDpToPixel(this@ImageQuestionsActivity, 75f),
+            convertDpToPixel(this@ImageQuestionsActivity, 80f)
         )
 
         boxParams.setMargins(2, 2, 2, 2)
@@ -313,7 +309,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnDragListener, View.OnTouch
 
             //layoutParams = boxParams
 
-            setOnTouchListener(this@QuestionsActivity)
+            setOnTouchListener(this@ImageQuestionsActivity)
 
             id = View.generateViewId()
         }
