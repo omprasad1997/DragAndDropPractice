@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +27,10 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
     private lateinit var option2: LinearLayout
     private lateinit var option3: LinearLayout
     private lateinit var option4: LinearLayout
+    private lateinit var submitButton: Button
+
     private lateinit var dataList: ArrayList<Data>
+    private var fillOptionsList = ArrayList<String>()
 
     private var isViewDroppedInsideOriginalContainer = false
     private var isViewDroppedInsideOption1Container = false
@@ -46,6 +50,7 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
         option2 = findViewById(R.id.option2)
         option3 = findViewById(R.id.option3)
         option4 = findViewById(R.id.option4)
+        submitButton = findViewById(R.id.submitButton)
 
         dataList = getData()
 
@@ -107,6 +112,13 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
                 }
 
                 DragEvent.ACTION_DRAG_ENDED -> {
+
+                    if(fillOptionsList.size != dataList.size){
+                        submitButton.visibility = View.GONE
+                    } else {
+                        submitButton.visibility = View.VISIBLE
+                    }
+
                     true
                 }
                 else -> {
@@ -201,6 +213,8 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
                         isViewDroppedInsideOriginalContainer = true
 
                         if (oldParent is LinearLayout && oldParent.childCount != 1) {
+                            val previousView = oldParent[1] as TextView
+                            fillOptionsList.remove(previousView.text.toString())
                             oldParent.removeViewAt(1)
                             oldParent[0].visibility = View.VISIBLE
                         }
@@ -227,6 +241,13 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
                         visibility = View.VISIBLE
                     }
                 }
+
+                if(fillOptionsList.size != dataList.size){
+                    submitButton.visibility = View.GONE
+                } else {
+                    submitButton.visibility = View.VISIBLE
+                }
+
                 return true
             }
 
@@ -238,13 +259,16 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
 
     private fun updateDraggedData(oldParent: ViewGroup, option: LinearLayout, draggedView: View) {
         if (oldParent is LinearLayout && oldParent.childCount != 1) {
+            val previousView = oldParent[1] as TextView
+            fillOptionsList.remove(previousView.text.toString())
             oldParent.removeViewAt(1)
             oldParent[0].visibility = View.VISIBLE
         }
 
 
         if (option.childCount != 1) {
-            val previousView = option[1]
+            val previousView = option[1] as TextView
+            fillOptionsList.remove(previousView.text.toString())
             option.removeViewAt(1)
             showInOriginalContainer(previousView, draggedView)
         } else{
@@ -260,6 +284,7 @@ class ImageQuestionsActivity : AppCompatActivity(), View.OnDragListener, View.On
             it.setTag(R.id.meta_id, draggedView.getTag(R.id.meta_id))
             it.setOnDragListener(reArrangeTextInsideOrderSentenceContainer)
             option.addView(it)
+            fillOptionsList.add(it.text.toString())
         }
     }
 

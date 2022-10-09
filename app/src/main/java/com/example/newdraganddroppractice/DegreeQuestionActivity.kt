@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +23,7 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
     private lateinit var mParent: ConstraintLayout
 
     private lateinit var dataList: ArrayList<Data>
+    private var fillOptionsList = ArrayList<String>()
 
     private lateinit var ll_comparative_1: LinearLayout
     private lateinit var ll_superlative_1: LinearLayout
@@ -29,6 +31,7 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
     private lateinit var ll_superlative_2: LinearLayout
     private lateinit var ll_comparative_3: LinearLayout
     private lateinit var ll_superlative_3: LinearLayout
+    private lateinit var submitButton : Button
 
     private var isViewDroppedInsideOriginalContainer = false
     private var isViewDroppedInsideComparative1Container = false
@@ -52,6 +55,7 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
         ll_superlative_2 = findViewById(R.id.ll_superlative_2)
         ll_comparative_3 = findViewById(R.id.ll_comparative_3)
         ll_superlative_3 = findViewById(R.id.ll_superlative_3)
+        submitButton = findViewById(R.id.submitButton)
 
         dataList = getData()
 
@@ -127,6 +131,11 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
 
                    // val v = view?.parent as ViewGroup
 
+                    if(fillOptionsList.size != dataList.size){
+                        submitButton.visibility = View.GONE
+                    } else {
+                        submitButton.visibility = View.VISIBLE
+                    }
 
                     true
                 }
@@ -308,6 +317,8 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
                         isViewDroppedInsideOriginalContainer = true
 
                         if (oldParent is LinearLayout) {
+                            val previousView = oldParent[0] as TextView
+                            fillOptionsList.remove(previousView.text.toString())
                             oldParent.removeAllViews()
                         }
 
@@ -334,6 +345,13 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
                         visibility = View.VISIBLE
                     }
                 }
+
+                if(fillOptionsList.size != dataList.size){
+                    submitButton.visibility = View.GONE
+                } else {
+                    submitButton.visibility = View.VISIBLE
+                }
+
                 return true
             }
 
@@ -347,12 +365,15 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
 
     private fun updateDraggedData(oldParent: ViewGroup, option: LinearLayout, draggedView: View) {
         if (oldParent is LinearLayout) {
+            val previousView = oldParent[0] as TextView
+            fillOptionsList.remove(previousView.text.toString())
             oldParent.removeAllViews()
         }
 
 
         if (option.childCount != 0) {
-            val previousView = option[0]
+            val previousView = option[0] as TextView
+            fillOptionsList.remove(previousView.text.toString())
             option.removeAllViews()
             showInOriginalContainer(previousView, draggedView)
         }
@@ -366,6 +387,7 @@ class DegreeQuestionActivity : AppCompatActivity(), View.OnDragListener, View.On
             it.setTag(R.id.meta_id, draggedView.getTag(R.id.meta_id))
             it.setOnDragListener(reArrangeTextInsideOrderSentenceContainer)
             option.addView(it)
+            fillOptionsList.add(it.text.toString())
         }
     }
 
